@@ -1,0 +1,11 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.bigText{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 70px;
+    text-align: center;
+}
