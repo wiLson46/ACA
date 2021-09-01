@@ -18,10 +18,11 @@ const distancia = (origen, destino) => {
 };
 
 const listarRutasMalas = () => {
-    lista.innerHTML='';
+    lista.innerHTML = '';
     rutas.forEach(ruta => {
-        if (ruta.estado === 'malo'){
-            lista.innerHTML += `<li class="list-group-item list-group-item-danger">La ruta ${ruta.id} tiene un estado ${ruta.estado}</li>`;
+        if (ruta.estado === 'malo') {
+            lista.innerHTML += `<li class="list-group-item list-group-item-danger">
+            La ruta ${ruta.id} tiene un estado ${ruta.estado}</li>`;
         }
     });
 };
@@ -30,7 +31,29 @@ const limpiar = () => {
     lista.innerHTML = '';
 };
 
+const listarCiudades = () => {
+    const botones = document.querySelector('.list-group');
+    botones.innerHTML = '';
+    ciudades.forEach(ciudad => {
+        botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.nombre}</button>`;
+    });
+};
+
+let selection = 0;
+const listClick = (event) => {
+    if (selection < 2){
+        selection++;
+        boton = event.target;
+        boton.attributes.className = "list-group-item list-group-item-action active";
+    }
+    console.log(event.target.attributes.className);
+};
+
+let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
 const botonListar = document.querySelector('.btn.btn-primary.btn-lg');
-botonListar.addEventListener('click' ,listarRutasMalas);
+botonListar.addEventListener('click', listarRutasMalas);
 const botonLimpiar = document.querySelector('.btn.btn-danger.btn-lg');
 botonLimpiar.addEventListener('click', limpiar);
+listarCiudades();
+botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
+botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
