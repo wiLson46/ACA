@@ -46,7 +46,7 @@ let conexiones = [{
     MENDOZA: { ruta: 3, distancia: 12000 }
 }];
 
-const lista = document.querySelector('#listaMalEstado');
+const lista = document.getElementById("listaMalEstado");
 
 const listarRutasMalas = () => {
     lista.innerHTML = '';
@@ -63,7 +63,7 @@ const limpiar = () => {
 };
 
 const listarCiudades = () => {
-    const botones = document.querySelector('.list-group');
+    const botones = document.getElementById("listaCitys");
     botones.innerHTML = '';
     ciudades.forEach(ciudad => {
         botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.nombre}</button>`;
