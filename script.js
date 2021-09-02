@@ -1,40 +1,50 @@
-let rutas = [{id: 1, estado: 'bueno'},
-    {id: 2, estado: 'bueno'},
-    {id: 3, estado: 'malo'},
-    {id: 4, estado: 'regular'},
-    {id: 5, estado: 'malo'}];
+let rutas = [{ id: 1, estado: 'bueno' },
+{ id: 2, estado: 'bueno' },
+{ id: 3, estado: 'malo' },
+{ id: 4, estado: 'regular' },
+{ id: 5, estado: 'malo' }];
 
-let ciudades = [{id: 1, nombre: 'ROSARIO'},
-    {id: 2, nombre: 'BUENOS AIRES'},
-    {id: 3, nombre: 'CORDOBA'},
-    {id: 4, nombre: 'MENDOZA'},
-    {id: 5, nombre: 'PARANA'}];
+let ciudades = [{ id: 1, nombre: 'ROSARIO' },
+{ id: 2, nombre: 'BUENOS AIRES' },
+{ id: 3, nombre: 'CORDOBA' },
+{ id: 4, nombre: 'MENDOZA' },
+{ id: 5, nombre: 'PARANA' }];
 
-let conexiones = [{origen: 'ROSARIO',
-        BUENOSAIRES: {ruta: 1, distancia: 4000},
-        CORDOBA: {ruta: 3, distancia: 2000},
-        MENDOZA: {ruta: 2, distancia: 8000},
-        PARANA: {ruta: 4, distancia: 3000}},
-    {origen: 'BUENOS AIRES',
-    ROSARIO: {ruta: 1, distancia: 4000},
-    CORDOBA: {ruta: 3, distancia: 5000},
-    MENDOZA: {ruta: 2, distancia: 3000},
-    PARANA: {ruta: 1, distancia: 6000}},
-    {origen: 'CORDOBA',
-    ROSARIO: {ruta: 3, distancia: 2000},
-    BUENOSAIRES: {ruta: 3, distancia: 5000},
-    MENDOZA: {ruta: 5, distancia: 7000},
-    PARANA: {ruta: 4, distancia: 6000}},
-    {origen: 'MENDOZA',
-    ROSARIO: {ruta: 2, distancia: 8000},
-    BUENOSAIRES: {ruta: 2, distancia: 3000},
-    CORDOBA: {ruta: 5, distancia: 7000},
-    PARANA: {ruta: 3, distancia: 12000}},
-    {origen: 'PARANA',
-    ROSARIO: {ruta: 4, distancia: 3000},
-    BUENOSAIRES: {ruta: 1, distancia: 6000},
-    CORDOBA: {ruta: 4, distancia: 6000},
-    MENDOZA: {ruta: 3, distancia: 12000}}];
+let conexiones = [{
+    origen: 'ROSARIO',
+    BUENOSAIRES: { ruta: 1, distancia: 4000 },
+    CORDOBA: { ruta: 3, distancia: 2000 },
+    MENDOZA: { ruta: 2, distancia: 8000 },
+    PARANA: { ruta: 4, distancia: 3000 }
+},
+{
+    origen: 'BUENOS AIRES',
+    ROSARIO: { ruta: 1, distancia: 4000 },
+    CORDOBA: { ruta: 3, distancia: 5000 },
+    MENDOZA: { ruta: 2, distancia: 3000 },
+    PARANA: { ruta: 1, distancia: 6000 }
+},
+{
+    origen: 'CORDOBA',
+    ROSARIO: { ruta: 3, distancia: 2000 },
+    BUENOSAIRES: { ruta: 3, distancia: 5000 },
+    MENDOZA: { ruta: 5, distancia: 7000 },
+    PARANA: { ruta: 4, distancia: 6000 }
+},
+{
+    origen: 'MENDOZA',
+    ROSARIO: { ruta: 2, distancia: 8000 },
+    BUENOSAIRES: { ruta: 2, distancia: 3000 },
+    CORDOBA: { ruta: 5, distancia: 7000 },
+    PARANA: { ruta: 3, distancia: 12000 }
+},
+{
+    origen: 'PARANA',
+    ROSARIO: { ruta: 4, distancia: 3000 },
+    BUENOSAIRES: { ruta: 1, distancia: 6000 },
+    CORDOBA: { ruta: 4, distancia: 6000 },
+    MENDOZA: { ruta: 3, distancia: 12000 }
+}];
 
 const lista = document.querySelector('#listaMalEstado');
 
@@ -74,8 +84,8 @@ const listClick = (event) => {
             const dest = (document.querySelectorAll('.form-control.my-3')[1]);
             info[0].innerHTML = origen[dest.placeholder.replaceAll(' ', '')].distancia;
             const rutaCon = origen[dest.placeholder.replaceAll(' ', '')].ruta;
-            const estadoRuta = rutas.find(ruta => ruta.id === origen[dest.placeholder.replaceAll(' ','')].ruta);
-            info[1].innerHTML = `Ruta: ${rutaCon}, Estado: ${estadoRuta.estado}` ;
+            const estadoRuta = rutas.find(ruta => ruta.id === origen[dest.placeholder.replaceAll(' ', '')].ruta);
+            info[1].innerHTML = `Ruta: ${rutaCon}, Estado: ${estadoRuta.estado}`;
         }
     }
 };
@@ -84,7 +94,7 @@ const nuevaConsulta = () => {
     let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
     botonesCiudades.forEach(boton => boton.className = "list-group-item list-group-item-action");
     document.querySelectorAll('.form-control.my-3').forEach(campo => campo.placeholder = '');
-    document.querySelectorAll('.bigText').forEach(campo => campo.innerHTML = 'Seleccionar');
+    document.querySelectorAll('.bigText').forEach(campo => campo.innerHTML = 'Seleccionar ciudades');
     selection = 0;
 };
 
