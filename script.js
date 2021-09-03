@@ -52,7 +52,7 @@ const listClick = (event) => {
         if (document.querySelectorAll('.form-control.my-3')[1].placeholder !== '') {
             const camposA = document.getElementById('cityA');
             const camposB = document.getElementById('cityB');
-            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder)|| distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto2 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
+            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder)||distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder)||distancia.punto2 === parseInt(camposB.placeholder)));
             const ruta = distancia ? rutas.find(ruta => ruta.id = distancia.ruta) : undefined;
             const dato1 = distancia ? `${distancia.distancia} km` : 'información no disponible';
             const dato2 = ruta ? `Ruta ${distancia.ruta}, Estado: ${ruta.estado} ` : 'información no disponible';
