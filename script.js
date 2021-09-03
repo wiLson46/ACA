@@ -71,7 +71,8 @@ const nuevaConsulta = () => {
 };
 
 const agregar = (codigo, nombre) => {
-    ciudades.push({id: codigo, nombre: nombre});
+    //ciudad.push({id: ciudad.length+1, nombre: nombre.toUpperCase()});
+    ciudades.push({id: codigo, nombre: nombre.toUpperCase()});
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
