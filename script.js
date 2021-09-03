@@ -1,51 +1,22 @@
-let rutas = [{ id: 1, estado: 'bueno' },
-{ id: 2, estado: 'bueno' },
-{ id: 3, estado: 'malo' },
-{ id: 4, estado: 'regular' },
-{ id: 5, estado: 'malo' }];
+let rutas = [{id: 1, estado: 'bueno'},
+    {id: 2, estado: 'bueno'},
+    {id: 3, estado: 'malo'},
+    {id: 4, estado: 'regular'},
+    {id: 5, estado: 'malo'}];
 
-let ciudades = [{ id: 1, nombre: 'ROSARIO' },
-{ id: 2, nombre: 'BUENOS AIRES' },
-{ id: 3, nombre: 'CORDOBA' },
-{ id: 4, nombre: 'MENDOZA' },
-{ id: 5, nombre: 'PARANA' }];
+let ciudades = [{id: 1, nombre: 'ROSARIO'},
+    {id: 2, nombre: 'BUENOS AIRES'},
+    {id: 3, nombre: 'CORDOBA'},
+    {id: 4, nombre: 'MENDOZA'},
+    {id: 5, nombre: 'PARANA'},
+    {id: 6, nombre: 'VENADO TUERTO'}];
 
-let conexiones = [{
-    origen: 'ROSARIO',
-    BUENOSAIRES: { ruta: 1, distancia: 4000 },
-    CORDOBA: { ruta: 3, distancia: 2000 },
-    MENDOZA: { ruta: 2, distancia: 8000 },
-    PARANA: { ruta: 4, distancia: 3000 }
-},
-{
-    origen: 'BUENOS AIRES',
-    ROSARIO: { ruta: 1, distancia: 4000 },
-    CORDOBA: { ruta: 3, distancia: 5000 },
-    MENDOZA: { ruta: 2, distancia: 3000 },
-    PARANA: { ruta: 1, distancia: 6000 }
-},
-{
-    origen: 'CORDOBA',
-    ROSARIO: { ruta: 3, distancia: 2000 },
-    BUENOSAIRES: { ruta: 3, distancia: 5000 },
-    MENDOZA: { ruta: 5, distancia: 7000 },
-    PARANA: { ruta: 4, distancia: 6000 }
-},
-{
-    origen: 'MENDOZA',
-    ROSARIO: { ruta: 2, distancia: 8000 },
-    BUENOSAIRES: { ruta: 2, distancia: 3000 },
-    CORDOBA: { ruta: 5, distancia: 7000 },
-    PARANA: { ruta: 3, distancia: 12000 }
-},
-{
-    origen: 'PARANA',
-    ROSARIO: { ruta: 4, distancia: 3000 },
-    BUENOSAIRES: { ruta: 1, distancia: 6000 },
-    CORDOBA: { ruta: 4, distancia: 6000 },
-    MENDOZA: { ruta: 3, distancia: 12000 }
-}];
-
+let distancias = [
+    {punto1: 1, punto2: 2, distancia: 2000, ruta: 1},
+    {punto1: 1, punto2: 3, distancia: 3000, ruta: 3},
+    {punto1: 1, punto2: 4, distancia: 8000, ruta: 4},
+    {punto1: 1, punto2: 5, distancia: 2000, ruta: 2}
+];
 const lista = document.getElementById("listaMalEstado");
 
 const listarRutasMalas = () => {
@@ -66,7 +37,7 @@ const listarCiudades = () => {
     const botones = document.getElementById("listaCitys");
     botones.innerHTML = '';
     ciudades.forEach(ciudad => {
-        botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.nombre}</button>`;
+        botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.id} ${ciudad.nombre}</button>`;
     });
 };
 
@@ -79,13 +50,14 @@ const listClick = (event) => {
         document.querySelectorAll('.form-control.my-3')[selection].placeholder = boton.textContent;
         selection++;
         if (document.querySelectorAll('.form-control.my-3')[1].placeholder !== '') {
-            const info = document.querySelectorAll('.bigText');
-            const origen = conexiones.find(conexion => conexion.origen === document.querySelectorAll('.form-control.my-3')[0].placeholder);
-            const dest = (document.querySelectorAll('.form-control.my-3')[1]);
-            info[0].innerHTML = origen[dest.placeholder.replaceAll(' ', '')].distancia;
-            const rutaCon = origen[dest.placeholder.replaceAll(' ', '')].ruta;
-            const estadoRuta = rutas.find(ruta => ruta.id === origen[dest.placeholder.replaceAll(' ', '')].ruta);
-            info[1].innerHTML = `Ruta: ${rutaCon}, Estado: ${estadoRuta.estado}`;
+            const camposA = document.getElementById('cityA');
+            const camposB = document.getElementById('cityB');
+            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder)|| distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto2 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
+            const ruta = distancia ? rutas.find(ruta => ruta.id = distancia.ruta) : undefined;
+            const dato1 = distancia ? `${distancia.distancia} km` : 'información no disponible';
+            const dato2 = ruta ? `Ruta ${distancia.ruta}, Estado: ${ruta.estado} ` : 'información no disponible';
+            document.getElementById('info1').textContent = dato1;
+            document.getElementById('info2').textContent = dato2;
         }
     }
 };
@@ -96,6 +68,10 @@ const nuevaConsulta = () => {
     document.querySelectorAll('.form-control.my-3').forEach(campo => campo.placeholder = '');
     document.querySelectorAll('.bigText').forEach(campo => campo.innerHTML = 'Seleccionar ciudades');
     selection = 0;
+};
+
+const agregar = (codigo, nombre) => {
+    ciudades.push({id: codigo, nombre: nombre});
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
