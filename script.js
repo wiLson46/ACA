@@ -29,16 +29,12 @@ const listarRutasMalas = () => {
     });
 };
 
-const limpiar = () => {
-    lista.innerHTML = '';
-};
+const limpiar = () => lista.innerHTML = '';
 
 const listarCiudades = () => {
     const botones = document.getElementById("listaCitys");
     botones.innerHTML = '';
-    ciudades.forEach(ciudad => {
-        botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.id} ${ciudad.nombre}</button>`;
-    });
+    ciudades.forEach(ciudad => botones.innerHTML += `<button type="button" class="list-group-item list-group-item-action">${ciudad.id} ${ciudad.nombre}</button>`);
 };
 
 let selection = 0;
@@ -71,8 +67,38 @@ const nuevaConsulta = () => {
 };
 
 const agregar = (codigo, nombre) => {
-    //ciudad.push({id: ciudad.length+1, nombre: nombre.toUpperCase()});
-    ciudades.push({id: codigo, nombre: nombre.toUpperCase()});
+    nombre = nombre.toUpperCase();
+    //ciudad.push({id: ciudad.length+1, nombre: nombre});
+    ciudades.push({id: codigo, nombre: nombre});
+};
+
+const clickAgregar = () => {
+    if(document.getElementById("agregaID").value.trim() === '' || document.getElementById("agregaNombre").value.trim() === ''){
+        alert('Debe completar los datos');
+        document.getElementById("agregaNombre").value = '';
+        document.getElementById("agregaID").value = '';
+        return;
+    }
+    agregar(document.getElementById("agregaID").value, document.getElementById("agregaNombre").value);
+    listarCiudades();
+    botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
+    botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
+    document.getElementById("agregaID").value = '';
+    document.getElementById("agregaNombre").value = '';
+};
+
+const eliminar = (codigo) => {
+    ciudades.splice(codigo - 1, 1);
+    listarCiudades();
+    botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
+    botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
+    document.getElementById("eliminaID").value = '';
+    document.getElementById("eliminaNombre").value = '';
+};
+
+const clickEliminar = () => {
+    const codigo = document.getElementById("eliminaID").value;
+    eliminar(codigo);
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
@@ -85,3 +111,5 @@ listarCiudades();
 botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
 botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
 botonNuevaConsulta.addEventListener('click', nuevaConsulta);
+document.getElementById("agregarBTN").addEventListener('click', clickAgregar);
+document.getElementById("eliminaBTN").addEventListener('click', clickEliminar);
