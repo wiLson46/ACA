@@ -22,7 +22,7 @@ const lista = document.getElementById("listaMalEstado");
 const listarRutasMalas = () => {
     lista.innerHTML = '';
     rutas.forEach(ruta => {
-        if (ruta.estado === 'malo') {
+        if (ruta.estado === 'Malo') {
             lista.innerHTML += `<li class="list-group-item list-group-item-danger">
             La ruta ${ruta.id} tiene un estado ${ruta.estado}</li>`;
         }
@@ -39,7 +39,6 @@ const listarCiudades = () => {
 
 let selection = 0;
 const listClick = (event) => {
-    console.log(rutas);
     boton = event.target;
     if (selection < 2 && !boton.className.includes('active')) {
         boton = event.target;
@@ -68,8 +67,13 @@ const nuevaConsulta = () => {
 };
 
 const agregar = (codigo, nombre) => {
+    let existe = ciudades.findIndex(ciudad => ciudad.id === codigo);
+    console.log(existe);
+    if (existe >= 0){
+        alert("debe elegir un codigo diferente");
+        return;
+    }
     nombre = nombre.toUpperCase();
-    //ciudad.push({id: ciudad.length+1, nombre: nombre});
     ciudades.push({id: codigo, nombre: nombre});
 };
 
@@ -80,7 +84,7 @@ const clickAgregar = () => {
         document.getElementById("agregaID").value = '';
         return;
     }
-    agregar(document.getElementById("agregaID").value, document.getElementById("agregaNombre").value);
+    agregar(parseInt(document.getElementById("agregaID").value), document.getElementById("agregaNombre").value);
     listarCiudades();
     botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
     botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
@@ -89,6 +93,11 @@ const clickAgregar = () => {
 };
 
 const eliminar = (codigo) => {
+    let existe = ciudades.findIndex(ciudad => ciudad.id === +codigo);
+    if (existe < 0){
+        alert("debe elegir un codigo existente");
+        return;
+    }
     ciudades.splice(codigo - 1, 1);
     listarCiudades();
     botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
@@ -112,6 +121,7 @@ const agregaDistancia = () => {
     if (rutaExiste < 0){
         rutas.push({id: rutaNueva, estado: estado});
     }
+    else rutas[rutaExiste].estado = estado;
     distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
 };
 
