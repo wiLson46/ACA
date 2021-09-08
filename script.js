@@ -1,3 +1,4 @@
+console.log("versioin 1.13");
 let rutas = [{id: 1, estado: 'Bueno'},
     {id: 2, estado: 'Bueno'},
     {id: 3, estado: 'Malo'},
