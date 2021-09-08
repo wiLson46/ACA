@@ -54,6 +54,19 @@ const listClick = (event) => {
             const dato2 = ruta ? `Ruta ${distancia.ruta}, Estado: ${ruta.estado} ` : 'información no disponible';
             document.getElementById('info1').textContent = dato1;
             document.getElementById('info2').textContent = dato2;
+            document.getElementById('numruta').value = distancia ? distancia.ruta : 'no disponible';
+            document.getElementById('distanciaNueva').value = distancia ? distancia.distancia : 'no disponible';
+            const opciones = document.getElementsByTagName("option");
+//            opciones.forEach(opcion => console.log(opcion));
+            if (ruta) {
+                for (var i = 0; i < opciones.length; i++) {
+                    if (ruta.estado === opciones[i].text) {
+                        document.getElementById("inputGroupSelect04").value = i;
+                    }
+                }
+            } else {
+                document.getElementById("inputGroupSelect04").value = 0;
+            }
         }
     }
 };
@@ -68,7 +81,7 @@ const nuevaConsulta = () => {
 
 const agregar = (codigo, nombre) => {
     let existe = ciudades.findIndex(ciudad => ciudad.id === codigo);
-    if (existe >= 0 || codigo !== "[^0-9]" ) {
+    if (existe >= 0 || isNaN(codigo)) {
         document.getElementById("alerta1").classList.remove("d-none");
         return;
     }
@@ -92,7 +105,7 @@ const clickAgregar = () => {
 
 const eliminar = (codigo) => {
     let existe = ciudades.findIndex(ciudad => ciudad.id === +codigo);
-    if (existe < 0 ) {
+    if (existe < 0) {
         document.getElementById("alerta2").classList.remove("d-none");
         return;
     }
@@ -115,12 +128,20 @@ const agregaDistancia = () => {
     let punto1 = parseInt(document.getElementById("cityA").placeholder);
     let punto2 = parseInt(document.getElementById("cityB").placeholder);
     let estado = document.getElementById("inputGroupSelect04").options[document.getElementById("inputGroupSelect04").selectedIndex].text;
+    if (isNaN(rutaNueva) || isNaN(distanciaNueva) || punto1 === '' || punto2 === '' || estado === 'Nuevo estado de ruta') {
+        document.getElementById("alerta3").classList.remove("d-none");
+        return;
+    }
     let rutaExiste = rutas.findIndex(ruta => ruta.id === rutaNueva);
     if (rutaExiste < 0) {
         rutas.push({id: rutaNueva, estado: estado});
     } else
         rutas[rutaExiste].estado = estado;
     distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
+    document.getElementById("alerta3").classList.add("d-none");
+    document.getElementById("numruta").value = '';
+    document.getElementById("distanciaNueva").value = '';
+    document.getElementById("inputGroupSelect04").value = 0;
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
