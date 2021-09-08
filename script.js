@@ -57,7 +57,6 @@ const listClick = (event) => {
             document.getElementById('numruta').value = distancia ? distancia.ruta : 'no disponible';
             document.getElementById('distanciaNueva').value = distancia ? distancia.distancia : 'no disponible';
             const opciones = document.getElementsByTagName("option");
-//            opciones.forEach(opcion => console.log(opcion));
             if (ruta) {
                 for (var i = 0; i < opciones.length; i++) {
                     if (ruta.estado === opciones[i].text) {
@@ -76,6 +75,9 @@ const nuevaConsulta = () => {
     botonesCiudades.forEach(boton => boton.className = "list-group-item list-group-item-action");
     document.querySelectorAll('.form-control.my-3').forEach(campo => campo.placeholder = '');
     document.querySelectorAll('.bigText').forEach(campo => campo.innerHTML = 'Seleccionar ciudades');
+    document.getElementById('numruta').value = '';
+    document.getElementById('distanciaNueva').value = '';
+    document.getElementById("inputGroupSelect04").value = 0;
     selection = 0;
 };
 
