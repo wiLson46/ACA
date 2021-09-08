@@ -48,7 +48,7 @@ const listClick = (event) => {
         if (document.querySelectorAll('.form-control.my-3')[1].placeholder !== '') {
             const camposA = document.getElementById('cityA');
             const camposB = document.getElementById('cityB');
-            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder)||distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder)||distancia.punto2 === parseInt(camposB.placeholder)));
+            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
             const ruta = distancia ? rutas.find(ruta => ruta.id === distancia.ruta) : undefined;
             const dato1 = distancia ? `${distancia.distancia} km` : 'información no disponible';
             const dato2 = ruta ? `Ruta ${distancia.ruta}, Estado: ${ruta.estado} ` : 'información no disponible';
@@ -68,42 +68,40 @@ const nuevaConsulta = () => {
 
 const agregar = (codigo, nombre) => {
     let existe = ciudades.findIndex(ciudad => ciudad.id === codigo);
-    console.log(existe);
-    if (existe >= 0){
-        alert("debe elegir un codigo diferente");
+    if (existe >= 0 || codigo !== "[^0-9]" ) {
+        document.getElementById("alerta1").classList.remove("d-none");
         return;
     }
     nombre = nombre.toUpperCase();
     ciudades.push({id: codigo, nombre: nombre});
+    document.getElementById("agregaNombre").value = '';
+    document.getElementById("agregaID").value = '';
+    document.getElementById("alerta1").classList.add("d-none");
 };
 
 const clickAgregar = () => {
-    if(document.getElementById("agregaID").value.trim() === '' || document.getElementById("agregaNombre").value.trim() === ''){
-        alert('Debe completar los datos');
-        document.getElementById("agregaNombre").value = '';
-        document.getElementById("agregaID").value = '';
+    if (document.getElementById("agregaID").value.trim() === '' || document.getElementById("agregaNombre").value.trim() === '') {
+        document.getElementById("alerta1").classList.remove("d-none");
         return;
     }
     agregar(parseInt(document.getElementById("agregaID").value), document.getElementById("agregaNombre").value);
     listarCiudades();
     botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
     botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
-    document.getElementById("agregaID").value = '';
-    document.getElementById("agregaNombre").value = '';
 };
 
 const eliminar = (codigo) => {
     let existe = ciudades.findIndex(ciudad => ciudad.id === +codigo);
-    if (existe < 0){
-        alert("debe elegir un codigo existente");
+    if (existe < 0 ) {
+        document.getElementById("alerta2").classList.remove("d-none");
         return;
     }
-    ciudades.splice(codigo - 1, 1);
+    ciudades.splice(existe, 1);
     listarCiudades();
     botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
     botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
     document.getElementById("eliminaID").value = '';
-    document.getElementById("eliminaNombre").value = '';
+    document.getElementById("alerta2").classList.add("d-none");
 };
 
 const clickEliminar = () => {
@@ -118,10 +116,10 @@ const agregaDistancia = () => {
     let punto2 = parseInt(document.getElementById("cityB").placeholder);
     let estado = document.getElementById("inputGroupSelect04").options[document.getElementById("inputGroupSelect04").selectedIndex].text;
     let rutaExiste = rutas.findIndex(ruta => ruta.id === rutaNueva);
-    if (rutaExiste < 0){
+    if (rutaExiste < 0) {
         rutas.push({id: rutaNueva, estado: estado});
-    }
-    else rutas[rutaExiste].estado = estado;
+    } else
+        rutas[rutaExiste].estado = estado;
     distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
 };
 
