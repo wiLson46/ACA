@@ -149,7 +149,7 @@ const agregaDistancia = () => {
         distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
     }
     document.getElementById("alerta3").classList.add("d-none");
-    console.log("version 2")
+    console.log("version 2");
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
