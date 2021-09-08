@@ -136,7 +136,6 @@ const agregaDistancia = () => {
     }
     let rutaExiste = rutas.findIndex(ruta => ruta.id === rutaNueva);
     if (rutaExiste < 0) {
-        console.log("hj");
         rutas.push({id: rutaNueva, estado: estado});
     } else {
         rutas[rutaExiste].estado = estado;
@@ -144,12 +143,13 @@ const agregaDistancia = () => {
     const camposA = document.getElementById('cityA');
     const camposB = document.getElementById('cityB');
     const distancia = distancias.findIndex(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
-    if (distancia) {
+    if (distancia >=0) {
         distancias[distancia] = {punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva};
     } else {
         distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
     }
     document.getElementById("alerta3").classList.add("d-none");
+    console.log("version 2")
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
