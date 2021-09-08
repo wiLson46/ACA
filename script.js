@@ -1,8 +1,8 @@
-let rutas = [{id: 1, estado: 'bueno'},
-    {id: 2, estado: 'bueno'},
-    {id: 3, estado: 'malo'},
-    {id: 4, estado: 'regular'},
-    {id: 5, estado: 'malo'}];
+let rutas = [{id: 1, estado: 'Bueno'},
+    {id: 2, estado: 'Bueno'},
+    {id: 3, estado: 'Malo'},
+    {id: 4, estado: 'Regular'},
+    {id: 5, estado: 'Malo'}];
 
 let ciudades = [{id: 1, nombre: 'ROSARIO'},
     {id: 2, nombre: 'BUENOS AIRES'},
@@ -39,6 +39,7 @@ const listarCiudades = () => {
 
 let selection = 0;
 const listClick = (event) => {
+    console.log(rutas);
     boton = event.target;
     if (selection < 2 && !boton.className.includes('active')) {
         boton = event.target;
@@ -101,6 +102,19 @@ const clickEliminar = () => {
     eliminar(codigo);
 };
 
+const agregaDistancia = () => {
+    let rutaNueva = +document.getElementById("numruta").value;
+    let distanciaNueva = +document.getElementById("distanciaNueva").value;
+    let punto1 = parseInt(document.getElementById("cityA").placeholder);
+    let punto2 = parseInt(document.getElementById("cityB").placeholder);
+    let estado = document.getElementById("inputGroupSelect04").options[document.getElementById("inputGroupSelect04").selectedIndex].text;
+    let rutaExiste = rutas.findIndex(ruta => ruta.id === rutaNueva);
+    if (rutaExiste < 0){
+        rutas.push({id: rutaNueva, estado: estado});
+    }
+    distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
+};
+
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
 const botonListar = document.querySelector('.btn.btn-primary.btn-lg');
 const botonNuevaConsulta = document.querySelector('.btn.btn-warning.btn-lg');
@@ -113,3 +127,4 @@ botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
 botonNuevaConsulta.addEventListener('click', nuevaConsulta);
 document.getElementById("agregarBTN").addEventListener('click', clickAgregar);
 document.getElementById("eliminaBTN").addEventListener('click', clickEliminar);
+document.getElementById("cambiaDistancia").addEventListener('click', agregaDistancia);
