@@ -143,9 +143,9 @@ const agregaDistancia = () => {
     }
     const camposA = document.getElementById('cityA');
     const camposB = document.getElementById('cityB');
-    const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
+    const distancia = distancias.findIndex(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
     if (distancia) {
-        distancia = {punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva};
+        distancias[distancia] = {punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva};
     } else {
         distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
     }
