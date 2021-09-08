@@ -137,13 +137,12 @@ const agregaDistancia = () => {
     let rutaExiste = rutas.findIndex(ruta => ruta.id === rutaNueva);
     if (rutaExiste < 0) {
         rutas.push({id: rutaNueva, estado: estado});
-    } else
+    } 
+    else {
         rutas[rutaExiste].estado = estado;
+    }
     distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
     document.getElementById("alerta3").classList.add("d-none");
-    document.getElementById("numruta").value = '';
-    document.getElementById("distanciaNueva").value = '';
-    document.getElementById("inputGroupSelect04").value = 0;
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
