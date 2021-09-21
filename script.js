@@ -93,6 +93,10 @@ const agregar = (codigo, nombre) => {
     document.getElementById("agregaNombre").value = '';
     document.getElementById("agregaID").value = '';
     document.getElementById("alerta1").classList.add("d-none");
+    document.getElementById("alerta5").classList.remove("d-none");
+    setTimeout(() => {
+        document.getElementById("alerta5").classList.add("d-none");
+    }, 3000);
 };
 
 const clickAgregar = () => {
@@ -118,6 +122,10 @@ const eliminar = (codigo) => {
     botonesCiudades.forEach(boton => boton.addEventListener('click', listClick));
     document.getElementById("eliminaID").value = '';
     document.getElementById("alerta2").classList.add("d-none");
+    document.getElementById("alerta6").classList.remove("d-none");
+    setTimeout(() => {
+        document.getElementById("alerta6").classList.add("d-none");
+    }, 3000);
 };
 
 const clickEliminar = () => {
