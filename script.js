@@ -1,4 +1,4 @@
-console.log("versioin 1.13");
+console.log("versioin 1.7.2");
 let rutas = [{id: 1, estado: 'Bueno'},
     {id: 2, estado: 'Bueno'},
     {id: 3, estado: 'Malo'},
@@ -49,7 +49,7 @@ const listClick = (event) => {
         if (document.querySelectorAll('.form-control.my-3')[1].placeholder !== '') {
             const camposA = document.getElementById('cityA');
             const camposB = document.getElementById('cityB');
-            const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
+            const distancia = findByPoint(camposA,camposB);
             const ruta = distancia ? rutas.find(ruta => ruta.id === distancia.ruta) : undefined;
             const dato1 = distancia ? `${distancia.distancia} km` : 'información no disponible';
             const dato2 = ruta ? `Ruta ${distancia.ruta}, Estado: ${ruta.estado} ` : 'información no disponible';
@@ -144,13 +144,21 @@ const agregaDistancia = () => {
     const camposA = document.getElementById('cityA');
     const camposB = document.getElementById('cityB');
     const distancia = distancias.findIndex(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
-    if (distancia >=0) {
+    if (distancia >= 0) {
         distancias[distancia] = {punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva};
     } else {
         distancias.push({punto1: +punto1, punto2: +punto2, distancia: +distanciaNueva, ruta: +rutaNueva});
     }
     document.getElementById("alerta3").classList.add("d-none");
-    console.log("version 2");
+    document.getElementById("alerta4").classList.remove("d-none");
+    setTimeout(() => {
+        document.getElementById("alerta4").classList.add("d-none");
+    }, 3000);
+};
+
+const findByPoint = (camposA, camposB) => {
+    const distancia = distancias.find(distancia => (distancia.punto1 === parseInt(camposA.placeholder) || distancia.punto2 === parseInt(camposA.placeholder)) && (distancia.punto1 === parseInt(camposB.placeholder) || distancia.punto2 === parseInt(camposB.placeholder)));
+    return distancia;
 };
 
 let botonesCiudades = document.querySelectorAll('.list-group-item.list-group-item-action');
