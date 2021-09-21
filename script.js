@@ -1,4 +1,4 @@
-console.log("versioin 1.7.2");
+console.log("versio 1.7.3");
 let rutas = [{id: 1, estado: 'Bueno'},
     {id: 2, estado: 'Bueno'},
     {id: 3, estado: 'Malo'},
